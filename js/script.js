@@ -57,6 +57,7 @@ async function loadData(page) {
 
 // 4. 自選組合頁面邏輯 (表單驗證與動態清單) 
 async function initCustomizePage() {
+    const orderForm = document.getElementById('order-form');
     const noodleSelect = document.getElementById('noodle-select');
     const sauceSelect = document.getElementById('sauce-select');
     const randomBtn = document.getElementById('random-btn');
@@ -78,8 +79,24 @@ async function initCustomizePage() {
         noodles.forEach(n => noodleSelect.innerHTML += `<option value="${n.name}">${n.name}</option>`);
         sauces.forEach(s => sauceSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
 
+        orderForm.addEventListener('submit', (event) => {
+        // 1. 阻止頁面重新整理 (非常重要)
+        event.preventDefault(); 
+
+        // 2. 獲取當前選取的數值
+        const selectedNoodle = noodleSelect.value;
+        const selectedSauce = sauceSelect.value;
+
+        // 3. 更新 DOM 顯示結果
+        if (selectedNoodle && selectedSauce) {
+            resultText.innerText = `自選組合成功！您選擇了：${selectedNoodle} 搭配 ${selectedSauce}。`;
+            resultText.style.color = "green"; // 可加入顏色提示
+        }
+    });
+
         // 今日組合：隨機邏輯 [cite: 52]
         randomBtn.addEventListener('click', () => {
+            event.preventDefault(); 
             const randomNoodle = noodles[Math.floor(Math.random() * noodles.length)].name;
             const randomSauce = sauces[Math.floor(Math.random() * sauces.length)].name;
 
@@ -115,4 +132,5 @@ function initIngredientHover() {
             card.style.backgroundColor = 'white';
         });
     });
+
 }
