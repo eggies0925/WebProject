@@ -1,0 +1,118 @@
+/**
+ * Pasta World 核心邏輯檔
+ * 包含：Fetch API 載入資料、DOM 動態渲染、表單事件處理與 localStorage 運用
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 根據當前頁面執行對應邏輯
+    const path = window.location.pathname;
+    const page = path.split("/").pop();
+
+    if (page === 'noodles.html' || page === 'sauces.html') {
+        loadData(page);
+    } else if (page === 'customize.html') {
+        initCustomizePage();
+    }
+
+    // 針對 Ingredients 頁面的 Hover 效果 (即便不靠 CSS 也能用 JS 強化)
+    if (page === 'ingredients.html') {
+        initIngredientHover();
+    }
+});
+
+// 1. AJAX / Fetch 運用：從外部 JSON 取得資料 
+async function loadData(page) {
+    const targetId = page === 'noodles.html' ? 'noodle-container' : 'sauce-list';
+    const jsonFile = page === 'noodles.html' ? './data/noodles.json' : './data/sauces.json';
+    const container = document.getElementById(targetId);
+
+    if (!container) return;
+
+    try {
+        const response = await fetch(jsonFile);
+        const data = await response.json();
+
+        // 2. DOM 動態呈現：將資料渲染至前端 
+        container.innerHTML = ''; // 清空讀取中文字
+        data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <h3>${item.name}</h3>
+                <p>${item.description || item.features}</p>
+            `;
+
+            // 3. Event 事件：互動操作 (點擊卡片顯示詳細資訊) [cite: 18, 50]
+            card.addEventListener('click', () => {
+                showDetail(item);
+            });
+
+            container.appendChild(card);
+        });
+    } catch (error) {
+        console.error('資料載入失敗:', error);
+        container.innerHTML = '<p>資料加載中，請稍後...</p>';
+    }
+}
+
+// 4. 自選組合頁面邏輯 (表單驗證與動態清單) 
+async function initCustomizePage() {
+    const noodleSelect = document.getElementById('noodle-select');
+    const sauceSelect = document.getElementById('sauce-select');
+    const randomBtn = document.getElementById('random-btn');
+    const resultText = document.getElementById('result-text');
+
+    try {
+        // 同時 fetch 三份 JSON [cite: 19]
+        const [nRes, sRes, iRes] = await Promise.all([
+            fetch('./data/noodles.json'),
+            fetch('./data/sauces.json'),
+            fetch('./data/ingredients.json')
+        ]);
+
+        const noodles = await nRes.json();
+        const sauces = await sRes.json();
+        const ingredients = await iRes.json();
+
+        // 填充下拉選單 [cite: 18]
+        noodles.forEach(n => noodleSelect.innerHTML += `<option value="${n.name}">${n.name}</option>`);
+        sauces.forEach(s => sauceSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
+
+        // 今日組合：隨機邏輯 [cite: 52]
+        randomBtn.addEventListener('click', () => {
+            const randomNoodle = noodles[Math.floor(Math.random() * noodles.length)].name;
+            const randomSauce = sauces[Math.floor(Math.random() * sauces.length)].name;
+
+            // 隨機取出 1-2 種配料
+            const shuffledIng = [...ingredients].sort(() => 0.5 - Math.random());
+            const selectedIng = shuffledIng.slice(0, Math.floor(Math.random() * 2) + 1).map(i => i.name);
+
+            // 更新 DOM [cite: 50]
+            resultText.innerText = `今日推薦：${randomNoodle} 搭配 ${randomSauce}，加點 [${selectedIng.join(" & ")}]。`;
+
+            // 同步更新選單狀態 (UX 優化)
+            noodleSelect.value = randomNoodle;
+            sauceSelect.value = randomSauce;
+        });
+
+    } catch (err) {
+        console.error("資料加載失敗", err);
+    }
+}
+
+function showDetail(item) {
+    // 簡單的彈窗互動，可提升至自訂 Modal
+    alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
+}
+
+function initIngredientHover() {
+    const cards = document.querySelectorAll('.ing-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.backgroundColor = '#f0f0f0';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.backgroundColor = 'white';
+        });
+    });
+}

@@ -1,0 +1,30 @@
+[
+    {
+        "id": "i1",
+        "name": "帕瑪森起司",
+        "type": "起司",
+        "calories": "150 kcal",
+        "description": "硬質起司，能增添鹹香與濃郁感。"
+    },
+    {
+        "id": "i2",
+        "name": "煙燻培根碎",
+        "type": "肉類",
+        "calories": "210 kcal",
+        "description": "香脆的培根碎，提供煙燻層次感。"
+    },
+    {
+        "id": "i3",
+        "name": "新鮮羅勒葉",
+        "type": "蔬菜",
+        "calories": "5 kcal",
+        "description": "清新的草本香氣，提升視覺與口味質感。"
+    },
+    {
+        "id": "i4",
+        "name": "蒜香炒蘑菇",
+        "type": "蔬菜",
+        "calories": "85 kcal",
+        "description": "使用大蒜與橄欖油清炒，口感多汁。"
+    }
+]

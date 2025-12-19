@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sauces - 醬汁介紹</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <a href="index.html" style="color: white; text-decoration: none;">Pasta World</a>
+        </div>
+        <ul>
+            <li><a href="index.html">回首頁</a></li>
+            <li><a href="noodles.html">麵條種類</a></li>
+            <li><a>經典醬汁</a></li>
+            <li><a href="ingredients.html">配料資訊</a></li>
+            <li><a href="customize.html">自選組合</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>醬汁口味建議</h2>
+        <div id="sauce-list">
+        </div>
+    </main>
+    <script>
+        fetch('sauces.json')
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('sauce-list');
+                data.forEach(s => {
+                    list.innerHTML += `
+                        <div class="sauce-item">
+                            <h3>${s.name}</h3>
+                            <p>特性：${s.features}</p>
+                            <p>建議搭配：${s.pairing}</p>
+                        </div>`;
+                });
+            });
+    </script>
+</body>
+
+</html>

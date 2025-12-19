@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Noodles - 麵條介紹</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <a href="index.html" style="color: white; text-decoration: none;">Pasta World</a>
+        </div>
+        <ul>
+            <li>麵條種類</li>
+            <li><a href="sauces.html">經典醬汁</a></li>
+            <li><a href="ingredients.html">配料資訊</a></li>
+            <li><a href="customize.html">自選組合</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>麵條種類一覽</h2>
+        <div id="noodle-container" class="grid">
+        </div>
+    </main>
+    <script>
+        fetch('noodles.json')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('noodle-container');
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<img src="${item.img}" alt="${item.name}"><h3>${item.name}</h3>`;
+                    // JS 事件：點擊顯示詳細資訊
+                    card.onclick = () => alert(`詳細資訊：${item.description}`);
+                    container.appendChild(card);
+                });
+            });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customize - 自選組合</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <a href="index.html" style="color: white; text-decoration: none;">Pasta World</a>
+        </div>
+        <ul>
+            <li><a href="index.html">回首頁</a></li>
+            <li><a href="noodles.html">麵條種類</a></li>
+            <li><a href="sauces.html">經典醬汁</a></li>
+            <li><a href="ingredients.html">配料資訊</a></li>
+            <li>自選組合</li>
+        </ul>
+    </nav>
+    <main>
+        <h2>打造你的專屬義大利麵</h2>
+        <form id="order-form">
+            <select id="noodle-select" required>
+                <option value="">--請選擇麵條--</option>
+            </select>
+            <select id="sauce-select" required>
+                <option value="">--請選擇醬汁--</option>
+            </select>
+            <button type="submit">確認組合</button>
+            <div class="button-group">
+                <button type="submit">確認組合</button>
+                <button type="button" id="random-btn" style="background-color: var(--primary-red);">今日組合</button>
+            </div>
+        </form>
+
+        <div id="display-area">
+            <h3>您的組合：</h3>
+            <p id="result-text">尚未選擇</p>
+        </div>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+[
+    {
+        "id": "n1",
+        "name": "義大利長麵 (Spaghetti)",
+        "description": "最傳統的麵體，由杜蘭小麥製成，口感彈牙。",
+        "img": "assets/images/noodle_spaghetti.jpg"
+    },
+    {
+        "id": "n2",
+        "name": "筆管麵 (Penne)",
+        "description": "斜切的中空短麵，能完美吸附濃郁的醬汁。",
+        "img": "assets/images/noodle_penne.jpg"
+    },
+    {
+        "id": "n3",
+        "name": "寬扁麵 (Fettuccine)",
+        "description": "寬大的表面積非常適合搭配奶油為底的醬料。",
+        "img": "assets/images/noodle_fettuccine.jpg"
+    }
+]

@@ -1,0 +1,124 @@
+/* 基本設定 */
+:root {
+    --primary-red: #C0392B;
+    --pasta-yellow: #F4D03F;
+    --sauce-green: #27AE60;
+    --cream-white: #FBFAF5;
+    --dark-text: #2C3E50;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--cream-white);
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+/* 導覽列 (符合所有頁面共用) */
+nav {
+    background-color: var(--primary-red);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--pasta-yellow);
+}
+
+/* 區塊容器 */
+main,
+section {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* 網格系統 (用於麵條、醬汁、配料展示) */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 2rem;
+}
+
+/* 卡片設計 (包含 Hover 效果) */
+.card,
+.ing-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border: 2px solid var(--pasta-yellow);
+}
+
+/* 表單樣式 (用於 Customize 頁面) */
+form {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+select,
+button {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: var(--sauce-green);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(1.1);
+}
+
+/* 結果顯示區 */
+#display-area {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #e8f6ef;
+    border-left: 5px solid var(--sauce-green);
+}
