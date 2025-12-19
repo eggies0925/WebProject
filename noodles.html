@@ -24,21 +24,8 @@
         <div id="noodle-container" class="grid">
         </div>
     </main>
-    <script>
-        fetch('noodles.json')
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('noodle-container');
-                data.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `<img src="${item.img}" alt="${item.name}"><h3>${item.name}</h3>`;
-                    // JS 事件：點擊顯示詳細資訊
-                    card.onclick = () => alert(`詳細資訊：${item.description}`);
-                    container.appendChild(card);
-                });
-            });
-    </script>
+    <script src="js/script.js"></script>
 </body>
+
 
 </html>
