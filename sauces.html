@@ -21,25 +21,11 @@
         </ul>
     </nav>
     <main>
-        <h2>醬汁口味建議</h2>
-        <div id="sauce-list">
-        </div>
+    <h2>醬汁口味建議</h2>
+    <div id="sauce-list" class="grid"> </div>
     </main>
-    <script>
-        fetch('sauces.json')
-            .then(res => res.json())
-            .then(data => {
-                const list = document.getElementById('sauce-list');
-                data.forEach(s => {
-                    list.innerHTML += `
-                        <div class="sauce-item">
-                            <h3>${s.name}</h3>
-                            <p>特性：${s.features}</p>
-                            <p>建議搭配：${s.pairing}</p>
-                        </div>`;
-                });
-            });
-    </script>
-</body>
+    <script src="js/script.js"></script>
+    </body>
+
 
 </html>
