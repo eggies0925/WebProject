@@ -32,30 +32,20 @@ async function loadData(page) {
         const response = await fetch(jsonFile);
         const data = await response.json();
 
-        // 2. DOM 動態呈現：將資料渲染至前端 
-        container.innerHTML = ''; // 清空讀取中文字
+        container.innerHTML = ''; 
         data.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'card noodle-card';
-
-            const imgPath = `assets/noodles_${item.name}.jpg`;
+            card.className = 'card';
             
+            // 如果 JSON 裡有 img 欄位就顯示圖片，否則顯示預設圖或空字串
+            const imgHtml = item.img ? `<img src="${item.img}" alt="${item.name}" class="card-img">` : '';
+
             card.innerHTML = `
-        <div class="card-image-container">
-            <img src="${imgPath}" alt="${item.name}" onerror="this.src='assets/default-pasta.jpg'">
-        </div>
-        <div class="card-content">
-            <h3>${item.name}</h3>
-            <p>${item.description || item.features}</p>
-        </div>
-    `;
+                ${imgHtml}
+                <h3>${item.name}</h3>
+                <p>${item.description || item.features}</p>
+            `;
 
-    card.addEventListener('click', () => {
-        showDetail(item);
-    });
-
-    container.appendChild(card);
-            // 3. Event 事件：互動操作 (點擊卡片顯示詳細資訊) [cite: 18, 50]
             card.addEventListener('click', () => {
                 showDetail(item);
             });
@@ -64,7 +54,7 @@ async function loadData(page) {
         });
     } catch (error) {
         console.error('資料載入失敗:', error);
-        container.innerHTML = '<p>資料加載中，請稍後...</p>';
+        container.innerHTML = '<p>資料加載失敗，請檢查路徑或檔案。</p>';
     }
 }
 
@@ -147,5 +137,6 @@ function initIngredientHover() {
     });
 
 }
+
 
 
