@@ -4,7 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 根據當前頁面執行對應邏輯
     const path = window.location.pathname;
     const page = path.split("/").pop();
 
@@ -12,11 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loadData(page);
     } else if (page === 'customize.html') {
         initCustomizePage();
-    }
-
-    // 針對 Ingredients 頁面的 Hover 效果 (即便不靠 CSS 也能用 JS 強化)
-    if (page === 'ingredients.html') {
-        initIngredientHover();
+    } else if (page === 'ingredients.html') {
+        loadIngredientsTable();
     }
 });
 
@@ -58,6 +54,50 @@ async function loadData(page) {
     } catch (error) {
         console.error('資料載入失敗:', error);
         container.innerHTML = '<p>資料加載失敗，請檢查路徑或檔案。</p>';
+    }
+}
+
+async function loadIngredientsTable() {
+    const container = document.getElementById('ingredient-table-container');
+    if (!container) return;
+
+    try {
+        const response = await fetch('./data/ingredients.json');
+        const data = await response.json();
+
+        // 依照 type 分類排序 (肉類在前，蔬菜在後)
+        data.sort((a, b) => (a.type === "肉類" ? -1 : 1));
+
+        let tableHtml = `
+            <table class="ing-table">
+                <thead>
+                    <tr>
+                        <th>類別</th>
+                        <th>名稱</th>
+                        <th>描述</th>
+                        <th>卡路里</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        data.forEach(item => {
+            tableHtml += `
+                <tr>
+                    <td class="type-cell">${item.type}</td>
+                    <td class="name-cell">${item.name}</td>
+                    <td>${item.description}</td>
+                    <td class="cal-cell">${item.calories}</td>
+                </tr>
+            `;
+        });
+
+        tableHtml += `</tbody></table>`;
+        container.innerHTML = tableHtml;
+
+    } catch (error) {
+        console.error('配料資料載入失敗:', error);
+        container.innerHTML = '<p>目前無法載入配料表格，請檢查資料夾路徑。</p>';
     }
 }
 
@@ -128,18 +168,6 @@ function showDetail(item) {
     alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
 }
 
-function initIngredientHover() {
-    const cards = document.querySelectorAll('.ing-card');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.backgroundColor = '#f0f0f0';
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.backgroundColor = 'white';
-        });
-    });
-
-}
 
 
 
