@@ -40,16 +40,19 @@ async function loadData(page) {
             // 如果 JSON 裡有 img 欄位就顯示圖片，否則顯示預設圖或空字串
             const imgHtml = item.img ? `<img src="${item.img}" alt="${item.name}" class="card-img">` : '';
 
+            const description = item.description || item.features;
+            const pairingInfo = item.pairing ? `<p><strong>建議搭配：</strong>${item.pairing}</p>` : '';
+            
             card.innerHTML = `
                 ${imgHtml}
-                <h3>${item.name}</h3>
-                <p>${item.description || item.features}</p>
+                <div class="card-content" style="padding: 15px;">
+                    <h3>${item.name}</h3>
+                    <p>${description}</p>
+                    ${pairingInfo}
+                </div>
             `;
 
-            card.addEventListener('click', () => {
-                showDetail(item);
-            });
-
+            card.addEventListener('click', () => showDetail(item));
             container.appendChild(card);
         });
     } catch (error) {
@@ -137,6 +140,7 @@ function initIngredientHover() {
     });
 
 }
+
 
 
 
