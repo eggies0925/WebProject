@@ -106,11 +106,11 @@ async function initCustomizePage() {
     const orderForm = document.getElementById('order-form');
     const noodleSelect = document.getElementById('noodle-select');
     const sauceSelect = document.getElementById('sauce-select');
+    const ingredientContainer = document.getElementById('ingredients-checkboxes');
     const randomBtn = document.getElementById('random-btn');
     const resultText = document.getElementById('result-text');
 
     try {
-        // 同時 fetch 三份 JSON [cite: 19]
         const [nRes, sRes, iRes] = await Promise.all([
             fetch('./data/noodles.json'),
             fetch('./data/sauces.json'),
@@ -121,41 +121,61 @@ async function initCustomizePage() {
         const sauces = await sRes.json();
         const ingredients = await iRes.json();
 
-        // 填充下拉選單 [cite: 18]
+        // 填充選單
         noodles.forEach(n => noodleSelect.innerHTML += `<option value="${n.name}">${n.name}</option>`);
         sauces.forEach(s => sauceSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
 
+        // 動態生成配料核取方塊 
+        ingredients.forEach(i => {
+            const label = document.createElement('label');
+            label.innerHTML = `<input type="checkbox" name="ing" value="${i.name}"> ${i.name}`;
+            ingredientContainer.appendChild(label);
+        });
+
+        // 處理手動提交 [cite: 18]
         orderForm.addEventListener('submit', (event) => {
-        // 1. 阻止頁面重新整理 (非常重要)
-        event.preventDefault(); 
-
-        // 2. 獲取當前選取的數值
-        const selectedNoodle = noodleSelect.value;
-        const selectedSauce = sauceSelect.value;
-
-        // 3. 更新 DOM 顯示結果
-        if (selectedNoodle && selectedSauce) {
-            resultText.innerText = `您選擇了：${selectedNoodle} 搭配 ${selectedSauce}。`;
-            resultText.style.color = "green"; // 可加入顏色提示
-        }
-    });
-
-        // 今日組合：隨機邏輯 [cite: 52]
-        randomBtn.addEventListener('click', () => {
             event.preventDefault(); 
+            
+            // 抓取選中的配料
+            const checkedIngs = Array.from(document.querySelectorAll('input[name="ing"]:checked')).map(el => el.value);
+            
+            if (checkedIngs.length === 0) {
+                alert("建議至少選擇一項配料喔！");
+            }
+
+            const ingText = checkedIngs.length > 0 ? `，加點 [${checkedIngs.join(" & ")}]` : "";
+            resultText.innerText = `您選擇了：${noodleSelect.value} 搭配 ${sauceSelect.value}${ingText}。`;
+            resultText.style.color = "green";
+        });
+
+        // 今日組合：隨機邏輯 
+        randomBtn.addEventListener('click', (event) => {
+            event.preventDefault(); 
+            
             const randomNoodle = noodles[Math.floor(Math.random() * noodles.length)].name;
             const randomSauce = sauces[Math.floor(Math.random() * sauces.length)].name;
 
-            // 隨機取出 1-2 種配料
-            const shuffledIng = [...ingredients].sort(() => 0.5 - Math.random());
-            const selectedIng = shuffledIng.slice(0, Math.floor(Math.random() * 2) + 1).map(i => i.name);
-
-            // 更新 DOM [cite: 50]
-            resultText.innerText = `今日推薦：${randomNoodle} 搭配 ${randomSauce}，加點 [${selectedIng.join(" & ")}]。`;
-
-            // 同步更新選單狀態 (UX 優化)
+            // 1. 更新選單值
             noodleSelect.value = randomNoodle;
             sauceSelect.value = randomSauce;
+
+            // 2. 清除所有配料選取並隨機勾選 1-2 種 [cite: 18]
+            const checkboxes = document.querySelectorAll('input[name="ing"]');
+            checkboxes.forEach(cb => cb.checked = false); // 先全部取消勾選
+            
+            const shuffledIndices = [...Array(checkboxes.length).keys()].sort(() => 0.5 - Math.random());
+            const count = Math.floor(Math.random() * 2) + 1; // 隨機 1 或 2
+            const selectedNames = [];
+
+            for(let i = 0; i < count; i++) {
+                const idx = shuffledIndices[i];
+                checkboxes[idx].checked = true;
+                selectedNames.push(checkboxes[idx].value);
+            }
+
+            // 3. 更新結果文字 [cite: 50]
+            resultText.innerText = `今日推薦：${randomNoodle} 搭配 ${randomSauce}，加點 [${selectedNames.join(" & ")}]。`;
+            resultText.style.color = "var(--primary-red)";
         });
 
     } catch (err) {
@@ -167,6 +187,7 @@ function showDetail(item) {
     // 簡單的彈窗互動，可提升至自訂 Modal
     alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
 }
+
 
 
 
