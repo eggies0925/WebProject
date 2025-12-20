@@ -36,12 +36,25 @@ async function loadData(page) {
         container.innerHTML = ''; // 清空讀取中文字
         data.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <h3>${item.name}</h3>
-                <p>${item.description || item.features}</p>
-            `;
+            card.className = 'card noodle-card';
 
+            const imgPath = `assets/${item.name}.png`;
+            
+            card.innerHTML = `
+        <div class="card-image-container">
+            <img src="${imgPath}" alt="${item.name}" onerror="this.src='assets/default-pasta.png'">
+        </div>
+        <div class="card-content">
+            <h3>${item.name}</h3>
+            <p>${item.description || item.features}</p>
+        </div>
+    `;
+
+    card.addEventListener('click', () => {
+        showDetail(item);
+    });
+
+    container.appendChild(card);
             // 3. Event 事件：互動操作 (點擊卡片顯示詳細資訊) [cite: 18, 50]
             card.addEventListener('click', () => {
                 showDetail(item);
@@ -134,3 +147,4 @@ function initIngredientHover() {
     });
 
 }
+
