@@ -95,7 +95,7 @@ async function initCustomizePage() {
 
         // 3. 更新 DOM 顯示結果
         if (selectedNoodle && selectedSauce) {
-            resultText.innerText = `自選組合成功！您選擇了：${selectedNoodle} 搭配 ${selectedSauce}。`;
+            resultText.innerText = `您選擇了：${selectedNoodle} 搭配 ${selectedSauce}。`;
             resultText.style.color = "green"; // 可加入顏色提示
         }
     });
@@ -140,6 +140,7 @@ function initIngredientHover() {
     });
 
 }
+
 
 
 
