@@ -133,3 +133,34 @@ button:hover {
     border-left: 5px solid var(--sauce-green);
 
 }
+
+/* 表格基本樣式 */
+.ing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.ing-table th, .ing-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.ing-table th {
+    background-color: var(--primary-red); /* 延用你的主題色 */
+    color: white;
+    text-transform: uppercase;
+}
+
+/* 滑鼠懸停效果 (取代原本的 JS Hover) */
+.ing-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* 特定欄位樣式 */
+.type-cell { font-weight: bold; color: #555; }
+.name-cell { color: #d32f2f; font-weight: bold; }
+.cal-cell { color: #777; font-style: italic; }
