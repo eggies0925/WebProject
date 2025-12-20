@@ -3,54 +3,55 @@
         "id": "n1",
         "name": "彎管麵 (Macaroni)",
         "description": "呈管狀彎曲，麵體薄軟且小巧好入口，適合作為湯品、涼拌或焗烤。",
-        "img": "assets/images/noodle_macaroni.jpg"
+        "img": "assets/noodle_macaroni.jpg"
     },
     {
         "id": "n2",
         "name": "天使麵 (Angel Hair)",
         "description": "義大利麵中最細的麵種，口感細緻柔軟，醬汁吸附能力極佳。",
-        "img": "assets/images/noodle_angel_hair.jpg"
+        "img": "assets/noodle_angel_hair.jpg"
     },
     {
         "id": "n3",
         "name": "圓直麵 (Spaghetti)",
         "description": "最正統且原始的麵體，斷面呈圓形，嚼勁十足且Q彈韌度高。",
-        "img": "assets/images/noodle_spaghetti.jpg"
+        "img": "assets/noodle_spaghetti.jpg"
     },
     {
         "id": "n4",
         "name": "墨魚細麵 (Spaghetti cuttlefish ink)",
         "description": "加入墨魚囊汁製成，帶有海洋鮮甜味，最適合與海鮮食材搭配。",
-        "img": "assets/images/noodle_spaghetti_cuttlefish_ink.jpg"
+        "img": "assets/noodle_spaghetti_cuttlefish_ink.jpg"
     },
     {
         "id": "n5",
         "name": "筆管麵 (Penne)",
         "description": "口感厚實有嚼勁，外層紋路與空心設計能讓麵條內外皆完整吸附醬汁。",
-        "img": "assets/images/noodle_penne.jpg"
+        "img": "assets/noodle_penne.jpg"
     },
     {
         "id": "n6",
         "name": "蝴蝶麵 (Farfalle)",
         "description": "形狀如美麗的蝴蝶結，麵糰中心厚實、咬勁十足，適合湯品或焗烤。",
-        "img": "assets/images/noodle_farfalle.jpg"
+        "img": "assets/noodle_farfalle.jpg"
     },
     {
         "id": "n7",
         "name": "螺旋麵 (Rotini)",
         "description": "外型如螺旋狀且口感軟Q，紋路能攜帶大量醬汁，適合做成焗烤料理。",
-        "img": "assets/images/noodle_rotini.jpg"
+        "img": "assets/noodle_rotini.jpg"
     },
     {
         "id": "n8",
         "name": "貝殼麵 (Conchiglie)",
         "description": "可愛的貝殼造型，開口處可吸附濃郁醬汁，口感厚實軟Q。",
-        "img": "assets/images/noodle_conchiglie.jpg"
+        "img": "assets/noodle_conchiglie.jpg"
     },
     {
         "id": "n9",
         "name": "細扁麵 (Linguine)",
         "description": "屬於寬麵的一種，斷面為橢圓形，極易蘸附醬汁，能顯現食材風味。",
-        "img": "assets/images/noodle_linguine.jpg"
+        "img": "assets/noodle_linguine.jpg"
     }
 ]
+
