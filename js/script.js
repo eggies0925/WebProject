@@ -38,11 +38,11 @@ async function loadData(page) {
             const card = document.createElement('div');
             card.className = 'card noodle-card';
 
-            const imgPath = `assets/${item.name}.png`;
+            const imgPath = `assets/noodles_${item.name}.jpg`;
             
             card.innerHTML = `
         <div class="card-image-container">
-            <img src="${imgPath}" alt="${item.name}" onerror="this.src='assets/default-pasta.png'">
+            <img src="${imgPath}" alt="${item.name}" onerror="this.src='assets/default-pasta.jpg'">
         </div>
         <div class="card-content">
             <h3>${item.name}</h3>
@@ -147,4 +147,5 @@ function initIngredientHover() {
     });
 
 }
+
 
