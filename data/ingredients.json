@@ -2,29 +2,120 @@
     {
         "id": "i1",
         "name": "帕瑪森起司",
-        "type": "起司",
+        "type": "蔬菜或其他",
         "calories": "150 kcal",
         "description": "硬質起司，能增添鹹香與濃郁感。"
     },
     {
         "id": "i2",
-        "name": "煙燻培根碎",
-        "type": "肉類",
-        "calories": "210 kcal",
-        "description": "香脆的培根碎，提供煙燻層次感。"
-    },
-    {
-        "id": "i3",
         "name": "新鮮羅勒葉",
-        "type": "蔬菜",
+        "type": "蔬菜或其他",
         "calories": "5 kcal",
         "description": "清新的草本香氣，提升視覺與口味質感。"
     },
     {
+        "id": "i3",
+        "name": "培根",
+        "type": "肉類",
+        "calories": "120 kcal",
+        "description": "香氣濃郁的煙燻培根。"
+    },
+    {
         "id": "i4",
-        "name": "蒜香炒蘑菇",
-        "type": "蔬菜",
-        "calories": "85 kcal",
-        "description": "使用大蒜與橄欖油清炒，口感多汁。"
+        "name": "火腿",
+        "type": "肉類",
+        "calories": "90 kcal",
+        "description": "鹹香軟嫩的切片火腿。"
+    },
+    {
+        "id": "i5",
+        "name": "雞肉",
+        "type": "肉類",
+        "calories": "110 kcal",
+        "description": "低脂健康的香煎雞胸肉。"
+    },
+    {
+        "id": "i6",
+        "name": "牛肉片",
+        "type": "肉類",
+        "calories": "180 kcal",
+        "description": "鮮嫩多汁的特選牛肉片。"
+    },
+    {
+        "id": "i7",
+        "name": "蝦仁",
+        "type": "肉類",
+        "calories": "70 kcal",
+        "description": "口感彈牙的新鮮蝦仁。"
+    },
+    {
+        "id": "i8",
+        "name": "蛤蜊",
+        "type": "肉類",
+        "calories": "45 kcal",
+        "description": "飽滿多汁，增添海鮮鮮味。"
+    },
+    {
+        "id": "i9",
+        "name": "洋蔥",
+        "type": "蔬菜或其他",
+        "calories": "30 kcal",
+        "description": "拌炒後散發清甜風味。"
+    },
+    {
+        "id": "i10",
+        "name": "蘑菇",
+        "type": "蔬菜或其他",
+        "calories": "25 kcal",
+        "description": "口感滑順且具獨特香氣。"
+    },
+    {
+        "id": "i11",
+        "name": "青椒",
+        "type": "蔬菜或其他",
+        "calories": "20 kcal",
+        "description": "色彩鮮豔且富有纖維感。"
+    },
+    {
+        "id": "i12",
+        "name": "小番茄",
+        "type": "蔬菜或其他",
+        "calories": "15 kcal",
+        "description": "酸甜多汁，解膩開胃。"
+    },
+    {
+        "id": "i13",
+        "name": "菠菜",
+        "type": "蔬菜或其他",
+        "calories": "10 kcal",
+        "description": "富含鐵質與維生素的嫩葉。"
+    },
+    {
+        "id": "i14",
+        "name": "櫛瓜",
+        "type": "蔬菜或其他",
+        "calories": "25 kcal",
+        "description": "清爽可口的櫛瓜切片。"
+    },
+    {
+        "id": "i15",
+        "name": "玉米筍",
+        "type": "蔬菜或其他",
+        "calories": "30 kcal",
+        "description": "清脆鮮甜的迷你玉米。"
+    },
+    {
+        "id": "i16",
+        "name": "蝦",
+        "type": "肉類",
+        "calories": "80 kcal",
+        "description": "肉質緊實的整隻大鮮蝦。"
+    },
+    {
+        "id": "i17",
+        "name": "小卷",
+        "type": "肉類",
+        "calories": "60 kcal",
+        "description": "Q彈可口的小卷，海味十足。"
     }
 ]
