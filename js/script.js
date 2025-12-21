@@ -1,8 +1,3 @@
-/**
- * Pasta World 核心邏輯檔
- * 包含：Fetch API 載入資料、DOM 動態渲染、表單事件處理與 localStorage 運用
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;
     const page = path.split("/").pop();
@@ -16,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// 1. AJAX / Fetch 運用：從外部 JSON 取得資料 
 async function loadData(page) {
     const targetId = page === 'noodles.html' ? 'noodle-container' : 'sauce-list';
     const jsonFile = page === 'noodles.html' ? './data/noodles.json' : './data/sauces.json';
@@ -33,10 +27,8 @@ async function loadData(page) {
             const card = document.createElement('div');
             card.className = 'card';
             
-            // 如果 JSON 裡有 img 欄位就顯示圖片，否則顯示預設圖或空字串
             const imgHtml = item.img ? `<img src="${item.img}" alt="${item.name}" class="card-img">` : '';
-
-            const description = item.description || item.features;
+            const description = item.description || item.features; // 自動切換 description 或 features
             const pairingInfo = item.pairing ? `<p><strong>建議搭配：</strong>${item.pairing}</p>` : '';
             
             card.innerHTML = `
@@ -48,7 +40,20 @@ async function loadData(page) {
                 </div>
             `;
 
-            card.addEventListener('click', () => showDetail(item));
+            if (page === 'sauces.html') {
+                card.style.cursor = 'pointer'; 
+                card.addEventListener('click', () => {
+                    // 顯示 JSON 中的 extra 欄位 [cite: 50]
+                    if (item.extra) {
+                        alert(`【${item.name} 深度探索】\n\n${item.extra}`);
+                    } else {
+                        alert(`【${item.name}】\n目前尚無更多歷史介紹。`);
+                    }
+                });
+            } else {
+                card.style.cursor = 'default';
+            }
+
             container.appendChild(card);
         });
     } catch (error) {
@@ -101,7 +106,6 @@ async function loadIngredientsTable() {
     }
 }
 
-// 4. 自選組合頁面邏輯 (表單驗證與動態清單) 
 async function initCustomizePage() {
     const orderForm = document.getElementById('order-form');
     const noodleSelect = document.getElementById('noodle-select');
@@ -132,11 +136,9 @@ async function initCustomizePage() {
             ingredientContainer.appendChild(label);
         });
 
-        // 處理手動提交 [cite: 18]
         orderForm.addEventListener('submit', (event) => {
             event.preventDefault(); 
             
-            // 抓取選中的配料
             const checkedIngs = Array.from(document.querySelectorAll('input[name="ing"]:checked')).map(el => el.value);
             
             if (checkedIngs.length === 0) {
@@ -148,23 +150,20 @@ async function initCustomizePage() {
             resultText.style.color = "green";
         });
 
-        // 今日組合：隨機邏輯 
         randomBtn.addEventListener('click', (event) => {
             event.preventDefault(); 
             
             const randomNoodle = noodles[Math.floor(Math.random() * noodles.length)].name;
             const randomSauce = sauces[Math.floor(Math.random() * sauces.length)].name;
 
-            // 1. 更新選單值
             noodleSelect.value = randomNoodle;
             sauceSelect.value = randomSauce;
 
-            // 2. 清除所有配料選取並隨機勾選 1-2 種 [cite: 18]
             const checkboxes = document.querySelectorAll('input[name="ing"]');
-            checkboxes.forEach(cb => cb.checked = false); // 先全部取消勾選
+            checkboxes.forEach(cb => cb.checked = false); 
             
             const shuffledIndices = [...Array(checkboxes.length).keys()].sort(() => 0.5 - Math.random());
-            const count = Math.floor(Math.random() * 2) + 1; // 隨機 1 或 2
+            const count = Math.floor(Math.random() * 2) + 1; 
             const selectedNames = [];
 
             for(let i = 0; i < count; i++) {
@@ -173,7 +172,6 @@ async function initCustomizePage() {
                 selectedNames.push(checkboxes[idx].value);
             }
 
-            // 3. 更新結果文字 [cite: 50]
             resultText.innerText = `今日推薦：${randomNoodle} 搭配 ${randomSauce}，加點 [${selectedNames.join(" & ")}]。`;
             resultText.style.color = "var(--primary-red)";
         });
@@ -184,9 +182,9 @@ async function initCustomizePage() {
 }
 
 function showDetail(item) {
-    // 簡單的彈窗互動，可提升至自訂 Modal
     alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
 }
+
 
 
 
