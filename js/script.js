@@ -28,7 +28,7 @@ async function loadData(page) {
             card.className = 'card';
             
             const imgHtml = item.img ? `<img src="${item.img}" alt="${item.name}" class="card-img">` : '';
-            const description = item.description || item.features; // 自動切換 description 或 features
+            const description = item.description || item.features; 
             const pairingInfo = item.pairing ? `<p><strong>建議搭配：</strong>${item.pairing}</p>` : '';
             
             card.innerHTML = `
@@ -43,9 +43,8 @@ async function loadData(page) {
             if (page === 'sauces.html') {
                 card.style.cursor = 'pointer'; 
                 card.addEventListener('click', () => {
-                    // 顯示 JSON 中的 extra 欄位 [cite: 50]
                     if (item.extra) {
-                        alert(`【${item.name} 深度探索】\n\n${item.extra}`);
+                        alert(`【${item.name} 歷史由來】\n\n${item.extra}`);
                     } else {
                         alert(`【${item.name}】\n目前尚無更多歷史介紹。`);
                     }
@@ -69,8 +68,6 @@ async function loadIngredientsTable() {
     try {
         const response = await fetch('./data/ingredients.json');
         const data = await response.json();
-
-        // 依照 type 分類排序 (肉類在前，蔬菜在後)
         data.sort((a, b) => (a.type === "肉類" ? -1 : 1));
 
         let tableHtml = `
@@ -125,11 +122,9 @@ async function initCustomizePage() {
         const sauces = await sRes.json();
         const ingredients = await iRes.json();
 
-        // 填充選單
         noodles.forEach(n => noodleSelect.innerHTML += `<option value="${n.name}">${n.name}</option>`);
         sauces.forEach(s => sauceSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
 
-        // 動態生成配料核取方塊 
         ingredients.forEach(i => {
             const label = document.createElement('label');
             label.innerHTML = `<input type="checkbox" name="ing" value="${i.name}"> ${i.name}`;
@@ -184,6 +179,7 @@ async function initCustomizePage() {
 function showDetail(item) {
     alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
 }
+
 
 
 
