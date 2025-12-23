@@ -94,7 +94,6 @@ section {
     border: 2px solid var(--pasta-yellow);
 }
 
-/* 表單樣式 (用於 Customize 頁面) */
 form {
     background: white;
     padding: 2rem;
@@ -163,11 +162,11 @@ button:hover {
 @keyframes slideInFromLeft {
     0% {
         opacity: 0;
-        transform: translateX(-100px); /* 初始位置在左側 100px 處 */
+        transform: translateX(-100px); 
     }
     100% {
         opacity: 1;
-        transform: translateX(0);    /* 回到原位 */
+        transform: translateX(0);   
     }
 }
 
@@ -205,6 +204,7 @@ button:hover {
 .hero-content {
     animation: fadeIn 1s ease-out forwards;
 }
+
 
 
 
