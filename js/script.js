@@ -54,7 +54,6 @@ async function loadData(page) {
                 backdrop: `rgba(0,0,0,0.4)` 
             });
         } else {
-            // 無資料時的提示
             Swal.fire({
                 title: item.name,
                 text: '目前尚無更多歷史介紹。',
@@ -142,7 +141,6 @@ async function initCustomizePage() {
 
         ingredients.forEach(i => {
             const label = document.createElement('label');
-            // 這裡加入 style 讓 checkbox 排列稍微好看一點
             label.style.display = "flex";
             label.style.alignItems = "center";
             label.style.gap = "5px";
@@ -230,7 +228,6 @@ async function initCustomizePage() {
                 selectedNames.push(checkboxes[idx].value);
             }
 
-            // 呼叫同一個渲染函式
             renderResultCard(randomNoodle, randomSauce, selectedNames);
         });
 
@@ -242,6 +239,7 @@ async function initCustomizePage() {
 function showDetail(item) {
     alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
 }
+
 
 
 
