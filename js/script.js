@@ -124,7 +124,7 @@ async function initCustomizePage() {
     const sauceSelect = document.getElementById('sauce-select');
     const ingredientContainer = document.getElementById('ingredients-checkboxes');
     const randomBtn = document.getElementById('random-btn');
-    const resultText = document.getElementById('result-text');
+    const displayArea = document.getElementById('display-area');
 
     try {
         const [nRes, sRes, iRes] = await Promise.all([
@@ -142,26 +142,74 @@ async function initCustomizePage() {
 
         ingredients.forEach(i => {
             const label = document.createElement('label');
+            // 這裡加入 style 讓 checkbox 排列稍微好看一點
+            label.style.display = "flex";
+            label.style.alignItems = "center";
+            label.style.gap = "5px";
             label.innerHTML = `<input type="checkbox" name="ing" value="${i.name}"> ${i.name}`;
             ingredientContainer.appendChild(label);
         });
 
-        orderForm.addEventListener('submit', (event) => {
-            event.preventDefault(); 
-            
-            const checkedIngs = Array.from(document.querySelectorAll('input[name="ing"]:checked')).map(el => el.value);
-            
-            if (checkedIngs.length === 0) {
-                alert("建議至少選擇一項配料喔！");
+        function renderResultCard(noodleName, sauceName, selectedIngredients) {
+            const noodleObj = noodles.find(n => n.name === noodleName);
+            const sauceObj = sauces.find(s => s.name === sauceName);
+
+            const imgSrc = noodleObj ? noodleObj.img : 'assets/default.jpg';
+            const sauceDesc = sauceObj ? sauceObj.features : '美味的醬汁';
+
+            let ingTagsHtml = '';
+            if (selectedIngredients.length > 0) {
+                ingTagsHtml = selectedIngredients.map(ing => `<span class="ing-tag">#${ing}</span>`).join('');
+            } else {
+                ingTagsHtml = `<span class="ing-tag" style="background:#eee; color:#888;">原味品嚐 (無配料)</span>`;
             }
 
-            const ingText = checkedIngs.length > 0 ? `，加點 [${checkedIngs.join(" & ")}]` : "";
-            resultText.innerText = `您選擇了：${noodleSelect.value} 搭配 ${sauceSelect.value}${ingText}。`;
-            resultText.style.color = "green";
+            // 3. 組合卡片 HTML
+            const cardHtml = `
+                <div class="result-card">
+                    <div class="result-img-box">
+                        <img src="${imgSrc}" alt="${noodleName}">
+                    </div>
+                    <div class="result-info">
+                        <h3>🍽️ 您的專屬義大利麵</h3>
+                        <div class="result-detail">
+                            <p><span>麵條：</span>${noodleName}</p>
+                            <p style="font-size:0.9em; color:#666;">${noodleObj.description}</p>
+                        </div>
+                        <div class="result-detail">
+                            <p><span>醬汁：</span>${sauceName}</p>
+                            <p style="font-size:0.9em; color:#666;">${sauceDesc}</p>
+                        </div>
+                        <div class="result-detail">
+                            <p><span>配料：</span></p>
+                            <div class="ing-tags">
+                                ${ingTagsHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            displayArea.innerHTML = cardHtml;
+        }
+
+        orderForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            
+            const selectedNoodle = noodleSelect.value;
+            const selectedSauce = sauceSelect.value;
+            const checkedIngs = Array.from(document.querySelectorAll('input[name="ing"]:checked')).map(el => el.value);
+            
+            if (!selectedNoodle || !selectedSauce) {
+                alert("請完整選擇麵條與醬汁喔！");
+                return;
+            }
+
+            renderResultCard(selectedNoodle, selectedSauce, checkedIngs);
         });
 
         randomBtn.addEventListener('click', (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
             
             const randomNoodle = noodles[Math.floor(Math.random() * noodles.length)].name;
             const randomSauce = sauces[Math.floor(Math.random() * sauces.length)].name;
@@ -170,7 +218,7 @@ async function initCustomizePage() {
             sauceSelect.value = randomSauce;
 
             const checkboxes = document.querySelectorAll('input[name="ing"]');
-            checkboxes.forEach(cb => cb.checked = false); 
+            checkboxes.forEach(cb => cb.checked = false);
             
             const shuffledIndices = [...Array(checkboxes.length).keys()].sort(() => 0.5 - Math.random());
             const count = Math.floor(Math.random() * 2) + 1; 
@@ -182,18 +230,19 @@ async function initCustomizePage() {
                 selectedNames.push(checkboxes[idx].value);
             }
 
-            resultText.innerText = `今日推薦：${randomNoodle} 搭配 ${randomSauce}，加點 [${selectedNames.join(" & ")}]。`;
-            resultText.style.color = "var(--primary-red)";
+            // 呼叫同一個渲染函式
+            renderResultCard(randomNoodle, randomSauce, selectedNames);
         });
 
     } catch (err) {
         console.error("資料加載失敗", err);
+        displayArea.innerHTML = "<p>系統發生錯誤，無法載入選項。</p>";
     }
 }
-
 function showDetail(item) {
     alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
 }
+
 
 
 
