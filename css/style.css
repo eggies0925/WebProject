@@ -94,7 +94,7 @@ section {
     border: 2px solid var(--pasta-yellow);
 }
 
-/* 表單樣式 (用於 Customize 頁面) */
+
 form {
     background: white;
     padding: 2rem;
@@ -131,6 +131,93 @@ button:hover {
 
 }
 
+#display-area {
+    margin-top: 2rem;
+    padding: 0; 
+    background: transparent; 
+    border: none; 
+}
+
+.result-card {
+    display: flex;
+    flex-direction: row; 
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    border-left: 8px solid var(--sauce-green); 
+    animation: fadeInUp 0.5s ease-out;
+}
+.result-img-box {
+    flex: 1;
+    min-width: 200px;
+    overflow: hidden;
+    background-color: #eee;
+}
+
+.result-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.result-card:hover .result-img-box img {
+    transform: scale(1.05); /* Hover 微放大效果 */
+}
+.result-info {
+    flex: 2;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.result-info h3 {
+    margin: 0 0 10px 0;
+    color: var(--primary-red);
+    font-size: 1.5rem;
+}
+
+.result-detail {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--dark-text);
+}
+
+.result-detail span {
+    font-weight: bold;
+    color: #555;
+}
+.ing-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.ing-tag {
+    background-color: var(--pasta-yellow);
+    color: var(--dark-text);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+@media (max-width: 600px) {
+    .result-card {
+        flex-direction: column;
+    }
+    .result-img-box {
+        height: 200px;
+    }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 .ing-table {
     width: 100%;
@@ -205,6 +292,7 @@ button:hover {
 .hero-content {
     animation: fadeIn 1s ease-out forwards;
 }
+
 
 
 
