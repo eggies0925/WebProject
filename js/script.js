@@ -41,17 +41,32 @@ async function loadData(page) {
             `;
 
             if (page === 'sauces.html') {
-                card.style.cursor = 'pointer'; 
-                card.addEventListener('click', () => {
-                    if (item.extra) {
-                        alert(`【${item.name} 歷史由來】\n\n${item.extra}`);
-                    } else {
-                        alert(`【${item.name}】\n目前尚無更多歷史介紹。`);
-                    }
-                });
-            } else {
-                card.style.cursor = 'default';
-            }
+    card.style.cursor = 'pointer'; 
+    card.addEventListener('click', () => {
+        if (item.extra) {
+            Swal.fire({
+                title: `<strong>${item.name}</strong>`, 
+                html: `<div style="text-align: left; line-height: 1.6;">${item.extra.replace(/\n/g, '<br>')}</div>`, 
+                icon: 'info',
+                confirmButtonText: '長知識了！',
+                confirmButtonColor: '#C0392B', 
+                background: '#FBFAF5', 
+                backdrop: `rgba(0,0,0,0.4)` 
+            });
+        } else {
+            // 無資料時的提示
+            Swal.fire({
+                title: item.name,
+                text: '目前尚無更多歷史介紹。',
+                icon: 'question',
+                confirmButtonText: '好的',
+                confirmButtonColor: '#27AE60' 
+            });
+        }
+    });
+} else {
+    card.style.cursor = 'default';
+}
 
             container.appendChild(card);
         });
@@ -179,6 +194,7 @@ async function initCustomizePage() {
 function showDetail(item) {
     alert(`【${item.name}】\n詳細介紹：${item.description || item.pairing}`);
 }
+
 
 
 
